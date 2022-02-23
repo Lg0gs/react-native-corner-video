@@ -1,11 +1,20 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import CornerVideo from 'react-native-corner-video';
+
+import VideoWrapper from 'react-native-corner-video';
 
 const VideoScreen = () => {
     return (
       <View style={styles.container}>
-        <CornerVideo style={styles.cornerVideo} />
+        <VideoWrapper
+          style={styles.cornerVideo}
+          width={150}
+          height={100}
+          top={50}
+          right={7}
+          bottom={50}
+          left={7}
+        />
       </View>
     );
 }
