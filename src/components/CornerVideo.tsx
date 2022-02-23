@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import { Gesture, GestureDetector } from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedStyle,
@@ -9,7 +9,7 @@ import Animated, {
 } from 'react-native-reanimated';
 
 import type { CornerVideoProps } from './VideoWrapper';
-import type { Measure } from 'react-native-corner-video';
+import { Measure, Provider } from 'react-native-corner-video';
 import { handler } from '../utils/handler';
 
 interface Props {
@@ -90,7 +90,19 @@ const CornerVideo = ({ props, positions }: Props) => {
           dragStyle,
           animatedStyle,
         ]}
-      />
+      >
+        <TouchableOpacity
+          activeOpacity={0.8}
+          onPress={() => Provider.hide()}
+          style={styles.closeBtn}
+        >
+          <Image
+            style={styles.closeImg}
+            source={require('../assets/close.png')}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      </Animated.View>
     </GestureDetector>
   );
 };
@@ -104,6 +116,22 @@ const styles = StyleSheet.create({
     left: 7,
     borderRadius: 10,
     backgroundColor: 'red',
+  },
+  closeBtn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: 'rgba(0,0,0, .4)',
+  },
+  closeImg: {
+    tintColor: '#fff',
+    width: 15,
+    height: 15,
   },
 });
 
