@@ -42,13 +42,18 @@ export const Provider = (props: any) => {
     setIsVisible(true);
   };
 
+  const hide = () => {
+    setIsVisible(false);
+  };
+
   React.useImperativeHandle(
     viewRef,
     React.useCallback(
       () => ({
         show,
+        hide
       }),
-      [show]
+      [show, hide]
     )
   );
 
@@ -62,6 +67,10 @@ export const Provider = (props: any) => {
 
 Provider.show = (pos: Measure, cornerProps: CornerVideoProps) => {
   ref?.current?.show(pos, cornerProps);
+};
+
+Provider.hide = () => {
+  ref?.current?.hide();
 };
 
 const styles = StyleSheet.create({
