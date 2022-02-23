@@ -17,13 +17,19 @@ var ref: any = null;
 export const Provider = (props: any) => {
   const viewRef = useRef();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const [positions, setPositions] = useState<Measure>({
+    w: 0,
+    h: 0,
+    x: 0,
+    y: 0,
+  });
   const [cornerProps, setCornerProps] = useState<CornerVideoProps>({
-    width: 150,
-    height: 100,
-    top: 50,
-    right: 7,
-    bottom: 50,
-    left: 7,
+    width: 0,
+    height: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
   });
 
   useEffect(() => {
@@ -31,6 +37,7 @@ export const Provider = (props: any) => {
   }, []);
 
   const show = (_pos: Measure, _cornerProps: CornerVideoProps) => {
+    setPositions(_pos);
     setCornerProps(_cornerProps);
     setIsVisible(true);
   };
@@ -48,7 +55,7 @@ export const Provider = (props: any) => {
   return (
     <View ref={ref} style={styles.container}>
       {props.children}
-      {isVisible && <CornerVideo props={cornerProps} />}
+      {isVisible && <CornerVideo positions={positions} props={cornerProps} />}
     </View>
   );
 };
