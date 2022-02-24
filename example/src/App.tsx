@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from 'react-native-ionicons'
-import { Provider } from 'react-native-corner-video';
+import { VideoProvider } from 'react-native-corner-video';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -26,7 +26,7 @@ const options = (route: any, color: string, size: number) => {
 
 export default function App() {
   return (
-      <Provider>
+      <VideoProvider>
         <NavigationContainer>
           <Tab.Navigator screenOptions={({ route }) => ({
             tabBarActiveTintColor: '#5C29CE',
@@ -38,6 +38,6 @@ export default function App() {
             <Tab.Screen name="Videos" component={VideoScreen} />
           </Tab.Navigator>
         </NavigationContainer>
-      </Provider>
+      </VideoProvider>
   );
 }
