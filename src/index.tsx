@@ -14,7 +14,7 @@ export type Measure = {
 
 var ref: any = null;
 
-export const Provider = (props: any) => {
+export const VideoProvider = (props: any) => {
   const viewRef = useRef();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [positions, setPositions] = useState<Measure>({
@@ -24,21 +24,36 @@ export const Provider = (props: any) => {
     y: 0,
   });
   const [cornerProps, setCornerProps] = useState<CornerVideoProps>({
-    width: 0,
-    height: 0,
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
+    cornerProps: {
+      width: 0,
+      height: 0,
+      top: 0,
+      right: 0,
+      bottom: 0,
+      left: 0,
+    },
+    videoProps: {
+      source: { uri: '' },
+    },
   });
+  const [currentTime, setCurrentTime] = useState<number>(0);
 
   useEffect(() => {
     ref = viewRef;
   }, []);
 
-  const show = (_pos: Measure, _cornerProps: CornerVideoProps) => {
+  const show = (
+    _pos: Measure,
+    _cornerProps: CornerVideoProps,
+    _currentTime: number,
+    _videoUri: string
+  ) => {
     setPositions(_pos);
-    setCornerProps(_cornerProps);
+    setCornerProps({
+      cornerProps: _cornerProps.cornerProps,
+      videoProps: { source: { uri: _videoUri } },
+    });
+    setCurrentTime(_currentTime);
     setIsVisible(true);
   };
 
@@ -48,10 +63,11 @@ export const Provider = (props: any) => {
 
   React.useImperativeHandle(
     viewRef,
+    // @ts-ignore
     React.useCallback(
       () => ({
         show,
-        hide
+        hide,
       }),
       [show, hide]
     )
@@ -60,16 +76,27 @@ export const Provider = (props: any) => {
   return (
     <View ref={ref} style={styles.container}>
       {props.children}
-      {isVisible && <CornerVideo positions={positions} props={cornerProps} />}
+      {isVisible && (
+        <CornerVideo
+          currentTime={currentTime}
+          positions={positions}
+          props={cornerProps}
+        />
+      )}
     </View>
   );
 };
 
-Provider.show = (pos: Measure, cornerProps: CornerVideoProps) => {
-  ref?.current?.show(pos, cornerProps);
+VideoProvider.show = (
+  pos: Measure,
+  cornerProps: CornerVideoProps,
+  currentTime: number,
+  videoUri: string
+) => {
+  ref?.current?.show(pos, cornerProps, currentTime, videoUri);
 };
 
-Provider.hide = () => {
+VideoProvider.hide = () => {
   ref?.current?.hide();
 };
 
