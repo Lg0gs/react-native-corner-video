@@ -7,7 +7,7 @@
  - [x] starts playng from the current time
 
 You can minimize video via `long press` on it and swipe to any corner
-<img src="https://media1.giphy.com/media/iL8ct1yWqcAYWxN6mO/giphy.gif" /> &nbsp;&nbsp;&nbsp;&nbsp; <img src="https://media1.giphy.com/media/3DTnHEQv2r9x0TgpaK/giphy.gif" />
+<img src="https://media1.giphy.com/media/iL8ct1yWqcAYWxN6mO/giphy.gif" /> &nbsp; <img src="https://media1.giphy.com/media/3DTnHEQv2r9x0TgpaK/giphy.gif" />
 
 # Instalation
 
@@ -16,7 +16,8 @@ or
 
     npm install react-native-corner-video
 
-> Note: You need to install [react-native-video](https://github.com/react-native-video/react-native-video), [react-native-gesture-handler](https://docs.swmansion.com/react-native-gesture-handler/docs/#installation) and [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/docs) libs. They represent native dependencies of the package!!
+> **Note**: 
+> You need to install [react-native-video](https://github.com/react-native-video/react-native-video), [react-native-gesture-handler](https://docs.swmansion.com/react-native-gesture-handler/docs/#installation) and [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/docs) libs. They represent native dependencies of the package!!
 
 ### iOS
 
