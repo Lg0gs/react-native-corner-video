@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import CornerVideo from './components/CornerVideo';
 import type { CornerVideoProps } from './components/VideoWrapper';
@@ -74,16 +75,18 @@ export const VideoProvider = (props: any) => {
   );
 
   return (
-    <View ref={ref} style={styles.container}>
-      {props.children}
-      {isVisible && (
-        <CornerVideo
-          currentTime={currentTime}
-          positions={positions}
-          props={cornerProps}
-        />
-      )}
-    </View>
+    <GestureHandlerRootView style={styles.container}>
+      <View ref={ref} style={styles.container}>
+        {props.children}
+        {isVisible && (
+          <CornerVideo
+            currentTime={currentTime}
+            positions={positions}
+            props={cornerProps}
+          />
+        )}
+      </View>
+    </GestureHandlerRootView>
   );
 };
 
