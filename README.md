@@ -55,7 +55,7 @@ Import **VideoWrapper**  where you want to render your video
 	 videoProps={{
 	    source: { uri: <video_uri> },
 	    resizeMode: 'cover',
-		controls: true
+		  controls: true
 	 }}
     />
 
