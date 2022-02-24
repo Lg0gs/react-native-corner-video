@@ -32,9 +32,9 @@ In the **App.js** file, wrap everything in **VideoProvider** component
 	//
 	export default function App() {
 	  return (
-	<VideoProvider>
+	    <VideoProvider>
 		  //
-	</VideoProvider>
+	    </VideoProvider>
 	  )
 	}
 
