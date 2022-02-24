@@ -1,23 +1,34 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
-import { Image, StyleSheet, TouchableOpacity } from 'react-native';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import { Gesture, GestureDetector } from 'react-native-gesture-handler';
+import Video from 'react-native-video';
 
 import type { CornerVideoProps } from './VideoWrapper';
-import { Measure, Provider } from 'react-native-corner-video';
+import { Measure, VideoProvider } from 'react-native-corner-video';
 import { handler } from '../utils/handler';
 
 interface Props {
+  currentTime: number;
   props: CornerVideoProps;
   positions: Measure;
 }
 
-const CornerVideo = ({ props, positions }: Props) => {
+const CornerVideo = ({ currentTime, props, positions }: Props) => {
+  const { cornerProps, videoProps } = props;
+
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const ref = useRef(Video.prototype);
   const width = useSharedValue(positions.w);
   const height = useSharedValue(positions.h);
   const top = useSharedValue(positions.y);
@@ -31,11 +42,16 @@ const CornerVideo = ({ props, positions }: Props) => {
     animate();
   }, []);
 
+  useEffect(() => {
+    setLoaded(false);
+    // @ts-ignore
+  }, [props.videoProps.source.uri]);
+
   const animate = () => {
-    width.value = withSpring(props.width, { damping: 15 });
-    height.value = withSpring(props.height, { damping: 15 });
-    top.value = withSpring(props.top, { damping: 15 });
-    left.value = withSpring(props.left, { damping: 15 });
+    width.value = withSpring(cornerProps.width, { damping: 15 });
+    height.value = withSpring(cornerProps.height, { damping: 15 });
+    top.value = withSpring(cornerProps.top, { damping: 15 });
+    left.value = withSpring(cornerProps.left, { damping: 15 });
   };
 
   const onGesture = Gesture.Pan()
@@ -47,12 +63,8 @@ const CornerVideo = ({ props, positions }: Props) => {
       const { x, y } = handler({
         e,
         props: {
-          width: props.width,
-          height: props.height,
-          top: props.top,
-          right: props.right,
-          bottom: props.bottom,
-          left: props.left,
+          cornerProps,
+          videoProps,
         },
       });
       offsetX.value = x;
@@ -91,9 +103,29 @@ const CornerVideo = ({ props, positions }: Props) => {
           animatedStyle,
         ]}
       >
+        <Video
+          ref={ref}
+          style={styles.videoPlayer}
+          resizeMode="cover"
+          onReadyForDisplay={() => {
+            setLoaded(true);
+            ref.current.seek(currentTime);
+          }}
+          source={{
+            // @ts-ignore
+            uri: videoProps.source.uri,
+          }}
+        />
+        {!loaded && (
+          <ActivityIndicator
+            style={{ position: 'absolute' }}
+            color="#444"
+            size="small"
+          />
+        )}
         <TouchableOpacity
           activeOpacity={0.8}
-          onPress={() => Provider.hide()}
+          onPress={() => VideoProvider.hide()}
           style={styles.closeBtn}
         >
           <Image
@@ -112,10 +144,17 @@ const styles = StyleSheet.create({
     width: 150,
     height: 100,
     position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
     top: 50,
     left: 7,
     borderRadius: 10,
-    backgroundColor: 'red',
+    overflow: 'hidden',
+    backgroundColor: '#EEE',
+  },
+  videoPlayer: {
+    width: '100%',
+    height: '100%',
   },
   closeBtn: {
     justifyContent: 'center',
@@ -123,15 +162,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 5,
     left: 5,
-    width: 30,
-    height: 30,
+    width: 25,
+    height: 25,
     borderRadius: 15,
     backgroundColor: 'rgba(0,0,0, .4)',
   },
   closeImg: {
     tintColor: '#fff',
-    width: 15,
-    height: 15,
+    width: 10,
+    height: 10,
   },
 });
 
