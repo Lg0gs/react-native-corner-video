@@ -7,6 +7,7 @@
  - [x] starts playng from the current time
 
 You can minimize video via `long press` on it and swipe to any corner
+
 <img src="https://media1.giphy.com/media/iL8ct1yWqcAYWxN6mO/giphy.gif" /> &nbsp;
 <img src="https://media1.giphy.com/media/3DTnHEQv2r9x0TgpaK/giphy.gif" />
 
