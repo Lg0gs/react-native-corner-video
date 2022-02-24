@@ -28,13 +28,13 @@ or
 # Usage
 In the **App.js** file, wrap everything in **VideoProvider** component
 
-    import { VideoProvider } from 'react-native-corner-video';
+  import { VideoProvider } from 'react-native-corner-video';
 	//
 	export default function App() {
 	  return (
-		<VideoProvider>
+	<VideoProvider>
 		  //
-		</VideoProvider>
+	</VideoProvider>
 	  )
 	}
 
