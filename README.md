@@ -8,8 +8,7 @@
 
 You can minimize video via `long press` on it and swipe to any corner
 
-<img src="https://media1.giphy.com/media/iL8ct1yWqcAYWxN6mO/giphy.gif" /> &nbsp;
-<img src="https://media1.giphy.com/media/3DTnHEQv2r9x0TgpaK/giphy.gif" />
+<img src="https://media1.giphy.com/media/iL8ct1yWqcAYWxN6mO/giphy.gif" /> &nbsp; <img src="https://media1.giphy.com/media/3DTnHEQv2r9x0TgpaK/giphy.gif" />
 
 # Instalation
 
@@ -28,13 +27,13 @@ or
 # Usage
 In the **App.js** file, wrap everything in **VideoProvider** component
 
-  import { VideoProvider } from 'react-native-corner-video';
+    import { VideoProvider } from 'react-native-corner-video';
 	//
 	export default function App() {
 	  return (
 	    <VideoProvider>
-		  //
-	    </VideoProvider>
+        //
+        </VideoProvider>
 	  )
 	}
 
@@ -43,20 +42,20 @@ Import **VideoWrapper**  where you want to render your video
     import VideoWrapper from  'react-native-corner-video';
     //
     <VideoWrapper
-	  style={styles.video}
-	  cornerProps={{
-		width: 150,
-		height: 100,
-		top: 50,
-		bottom: 50,
-		left: 7
-		right: 7
-	 }}
-	 videoProps={{
-	    source: { uri: <video_uri> },
-	    resizeMode: 'cover',
-		  controls: true
-	 }}
+      style={styles.video}
+      cornerProps={{
+        width: 150,
+        height: 100,
+        top: 50,
+        bottom: 50,
+        left: 7
+        right: 7
+      }}
+      videoProps={{
+        source: { uri: <video_uri> },
+        resizeMode: 'cover',
+        controls: true
+      }}
     />
 
 # Props
