@@ -21,8 +21,10 @@ export const handler = ({
   'worklet';
   let x = 0;
   let y = 0;
-  const bottomInset = props.height + props.top + props.bottom;
-  const rightInset = props.width + props.left + props.right;
+  const bottomInset =
+    props.cornerProps.height + props.cornerProps.top + props.cornerProps.bottom;
+  const rightInset =
+    props.cornerProps.width + props.cornerProps.left + props.cornerProps.right;
 
   if (e.absoluteX <= SCREEN_WIDTH / 2) {
     if (e.absoluteY <= SCREEN_HEIGHT / 2) {
