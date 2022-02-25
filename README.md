@@ -20,10 +20,6 @@ or
 > **Note**: 
 > You need to install [react-native-video](https://github.com/react-native-video/react-native-video), [react-native-gesture-handler](https://docs.swmansion.com/react-native-gesture-handler/docs/#installation) and [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/docs) libs. They represent native dependencies of the package!!
 
-### iOS
-
-    cd ios/ && pod install && cd ..
-
 # Usage
 In the **App.js** file, wrap everything in **VideoProvider** component
 
